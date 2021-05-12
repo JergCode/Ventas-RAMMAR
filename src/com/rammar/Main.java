@@ -15,28 +15,46 @@ public class Main {
 
             boolean continuar = true;
             while (continuar) {
-                switch (Menu.printMainMenu(user)) {
-                    case 1:
-                        showAction(1);
+                Actions action = Menu.printMainMenu(user);
+                switch (action) {
+                    case SALIR:
+                        continuar = false;
                         break;
-                    case 2:
-                        showAction(2);
-                        break;
-                    case 3:
-                        showAction(3);
+                    case CERRAR_SISTEMA:
+                        continuar = false;
+                        logout = true;
                         break;
                     default:
-                        continuar = false;
+                        actionHandler(action);
                 }
+//                switch (Menu.printMainMenu(user)) {
+//                    case COBRAR:
+//                        break;
+//                    case MOSTRAR_INVENTARIO:
+//                        break;
+//                    case RECIBIR_MERCANCIA:
+//                        break;
+//                    case AGREGAR_PRODUCTO:
+//                        break;
+//                    case ELIMINAR_PRODUCTO:
+//                        break;
+//                    case SALIR:
+//                        break;
+//                    case CERRAR_SISTEMA:
+//                        showAction();
+//                        break;
+//                    default:
+//                        continuar = false;
+//                }
             }
         } while (!logout);
         Menu.greetings();
     }
 
 
-    private static void showAction(int option) {
+    private static void actionHandler(Actions action) {
         Menu.clearScreen();
-        System.out.printf("Acción para la opción %d", option);
+        System.out.printf("Acción para la opción %s", action);
         Scanner scanner = MyScanner.getInstance().getScanner();
         scanner.nextLine();
     }

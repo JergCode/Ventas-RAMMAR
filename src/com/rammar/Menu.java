@@ -12,26 +12,28 @@ public class Menu {
 
     public static void printBienvenida() {
         clearScreen();
-        squareMessage("BIENVENIDO A VENTAS FER");
+        titleMessage("BIENVENIDO A VENTAS FER");
         System.out.println();
     }
 
-    public static int printMainMenu(User user) {
-        Integer option;
+    public static Actions printMainMenu(User user) {
+        Actions action = null;
         do {
             clearScreen();
             printUserInfo(user);
-            squareMessage("MENU PRINCIPAL");
+            titleMessage("MENU PRINCIPAL");
             printMenuOptions(user.actions());
-            option = getInput();
-        } while (option == null);
-        return option;
+            Character option = getInput();
+            action = Actions.parseAction(option);
+        } while (action == null);
+
+        return action;
     }
 
     private static void printUserInfo(User user) {
         String name = "Nombre: " + user.getNombre();
         String role = "Categoría: " + user.getTipo();
-        squareMessage("USUARIO");
+        titleMessage("USUARIO");
         System.out.printf(LEFT_ALIGN_FORMAT, name);
         System.out.printf(LEFT_ALIGN_FORMAT, role);
 
@@ -44,22 +46,16 @@ public class Menu {
         line();
     }
 
-    private static Integer getInput() {
-        Integer option = null;
-        try {
-            System.out.println();
-            System.out.print("Selecciona una opción: ");
-            option = scan.nextInt();
-            return option;
-        } catch (InputMismatchException ex) {
-            System.out.println();
-            System.out.println("Opción no valida, intente de nuevo...");
-        }
+    private static Character getInput() {
+        char option;
+        System.out.println();
+        System.out.print("Selecciona una opción: ");
+        option = scan.next().charAt(0);
         scan.nextLine();
-        return option;
+        return Character.toUpperCase(option);
     }
 
-    private static void squareMessage(String message) {
+    private static void titleMessage(String message) {
         line();
         System.out.printf(TITLE_FORMAT, centerMessage(message));
         line();
@@ -92,7 +88,7 @@ public class Menu {
 
     public static void greetings() {
         clearScreen();
-        squareMessage("Gracias por usar VentasFer!!!");
+        titleMessage("Gracias por usar VentasFer!!!");
     }
 
     private static void line() {

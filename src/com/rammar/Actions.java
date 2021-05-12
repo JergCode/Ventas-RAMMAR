@@ -3,7 +3,7 @@ package com.rammar;
 public enum Actions {
     COBRAR('C', "(C)obrar"),
     MOSTRAR_INVENTARIO('I', "Mostrar (I)nventario"),
-    RECIBIR_MERCANCÍA('R', "(R)ecibir Mercancía"),
+    RECIBIR_MERCANCIA('R', "(R)ecibir Mercancía"),
     ELIMINAR_PRODUCTO('E', "(E)liminar Producto"),
     AGREGAR_PRODUCTO('A', "(A)gregar Producto"),
     SALIR('S', "(S)alir"),
@@ -23,5 +23,14 @@ public enum Actions {
 
     public String getDescription() {
         return description;
+    }
+
+    public static Actions parseAction(Character code) {
+        for (Actions action : Actions.values()) {
+            if (action.getCode() == code) {
+                return action;
+            }
+        }
+        return null;
     }
 }

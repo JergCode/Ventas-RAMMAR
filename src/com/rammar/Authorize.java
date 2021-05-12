@@ -31,6 +31,7 @@ public class Authorize {
 
             if (tries == 2) {
                 System.out.println("Máximo de intentos alcanzado... Presione Enter para cerrar el sistema");
+                scan.nextLine();
                 Menu.greetings();
             }
             scan.nextLine();

@@ -21,9 +21,9 @@ public class User {
     public Actions[] actions() {
         switch (tipo) {
             case 'V':
-                return new Actions[]{Actions.COBRAR, Actions.MOSTRAR_INVENTARIO, Actions.RECIBIR_MERCANCÍA, Actions.SALIR, Actions.CERRAR_SISTEMA};
+                return new Actions[]{Actions.COBRAR, Actions.MOSTRAR_INVENTARIO, Actions.RECIBIR_MERCANCIA, Actions.SALIR, Actions.CERRAR_SISTEMA};
             case 'A':
-                return new Actions[]{Actions.COBRAR, Actions.MOSTRAR_INVENTARIO, Actions.RECIBIR_MERCANCÍA, Actions.ELIMINAR_PRODUCTO, Actions.AGREGAR_PRODUCTO, Actions.SALIR, Actions.CERRAR_SISTEMA};
+                return new Actions[]{Actions.COBRAR, Actions.MOSTRAR_INVENTARIO, Actions.RECIBIR_MERCANCIA, Actions.ELIMINAR_PRODUCTO, Actions.AGREGAR_PRODUCTO, Actions.SALIR, Actions.CERRAR_SISTEMA};
         }
         return new Actions[]{};
     }
