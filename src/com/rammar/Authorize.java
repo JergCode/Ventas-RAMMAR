@@ -1,7 +1,9 @@
 package com.rammar;
 
+import com.rammar.interfaz.Helpers;
+import com.rammar.interfaz.Menu;
+
 import java.io.Console;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -13,11 +15,12 @@ public class Authorize {
                     new User(UUID.randomUUID().toString(), "Fulanito Perez", "foo@gmail.com", "qwerty", 'V'),
             };
     private static final Scanner scan = MyScanner.getInstance().getScanner();
+    private static final int MAX_TRIES = 3;  // Número de intentos máximo para intentar ingresar al sistema
 
     public static User validarUsuario() {
         int tries = 0;
         User user = new User();
-        while (tries < 3) {
+        while (tries < MAX_TRIES) {
             Menu.printBienvenida();
             String email = preguntarPor("email", false);
             String password = preguntarPor("password", true);
@@ -32,16 +35,27 @@ public class Authorize {
             if (tries == 2) {
                 System.out.println("Máximo de intentos alcanzado... Presione Enter para cerrar el sistema");
                 scan.nextLine();
-                Menu.greetings();
+                Menu.printGreetings();
             }
             scan.nextLine();
-            Menu.clearScreen();
+            Helpers.clearScreen();
             tries++;
         }
         return user;
     }
 
+    public static User getValidUser() {
+        return USUARIOS[0];
+    }
 
+    /**
+     * Muestra un parrafo preguntando por el valor que se requiere, si el valor requerido es un campo
+     * confidencial se puede ocultar con el parametro hide.
+     *
+     * @param valorRequerido Este es el etiqueta del valor que se solicita, ej: email, password, etc...
+     * @param hide Indica si la consola debe ocultar lo que se esta escribiendo
+     * @return retorna un String con lo que el usuario ingreso a la consola.
+     */
     public static String preguntarPor(String valorRequerido, boolean hide) {
         String message = String.format("¿Cuál es tu %s ?: ", valorRequerido);
         if (!hide) {

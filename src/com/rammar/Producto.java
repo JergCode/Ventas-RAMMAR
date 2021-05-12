@@ -1,8 +1,10 @@
 package com.rammar;
 
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 public class Producto {
+    private static final DecimalFormat df = new DecimalFormat("#.00");
     private int uid;
     private String description;
     private Double cost;
@@ -28,7 +30,18 @@ public class Producto {
     }
 
     public Double getPrice() {
-        return this.cost * (this.profitPercentage / 100 + 1);
+        return cost * ((double) profitPercentage / 100 + 1);
+    }
+    public String getPriceStr() {
+        return df.format(getPrice());
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public String getCostStr() {
+        return df.format(cost);
     }
 
     public int getUid() {

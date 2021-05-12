@@ -1,21 +1,24 @@
 package com.rammar;
 
-import java.util.Scanner;
+import com.rammar.interfaz.Menu;
 
 public class Main {
 
     public static void main(String[] args) {
-        // write your code here
         boolean logout = false;
+        Inventario inventario = new Inventario();
         do {
-            User user = Authorize.validarUsuario();
+//            User user = Authorize.validarUsuario();
+            User user = Authorize.getValidUser();
             if (user == null) {
+                // Esta validación hace que se salga del sistema si no se encontró ningún usuario
                 return;
             }
 
+        Menu menu = new Menu(user, inventario);
             boolean continuar = true;
             while (continuar) {
-                Actions action = Menu.printMainMenu(user);
+                Actions action = menu.printMainMenu();
                 switch (action) {
                     case SALIR:
                         continuar = false;
@@ -25,38 +28,11 @@ public class Main {
                         logout = true;
                         break;
                     default:
-                        actionHandler(action);
+                        menu.actionHandler(action);
                 }
-//                switch (Menu.printMainMenu(user)) {
-//                    case COBRAR:
-//                        break;
-//                    case MOSTRAR_INVENTARIO:
-//                        break;
-//                    case RECIBIR_MERCANCIA:
-//                        break;
-//                    case AGREGAR_PRODUCTO:
-//                        break;
-//                    case ELIMINAR_PRODUCTO:
-//                        break;
-//                    case SALIR:
-//                        break;
-//                    case CERRAR_SISTEMA:
-//                        showAction();
-//                        break;
-//                    default:
-//                        continuar = false;
-//                }
             }
         } while (!logout);
-        Menu.greetings();
-    }
-
-
-    private static void actionHandler(Actions action) {
-        Menu.clearScreen();
-        System.out.printf("Acción para la opción %s", action);
-        Scanner scanner = MyScanner.getInstance().getScanner();
-        scanner.nextLine();
+        Menu.printGreetings();
     }
 
 }
