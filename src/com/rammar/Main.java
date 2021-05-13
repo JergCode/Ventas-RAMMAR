@@ -8,8 +8,8 @@ public class Main {
         boolean logout = false;
         Inventario inventario = new Inventario();
         do {
-//            User user = Authorize.validarUsuario();
-            User user = Authorize.getValidUser();
+            User user = Authorize.validarUsuario();
+//            User user = Authorize.getValidUser();
             if (user == null) {
                 // Esta validación hace que se salga del sistema si no se encontró ningún usuario
                 return;

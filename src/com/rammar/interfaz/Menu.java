@@ -8,8 +8,6 @@ import static com.rammar.interfaz.Helpers.*;
 
 public class Menu {
     private final Inventario inventario;
-    private final String LEFT_ALIGN_FORMAT = "| %-96s |%n";
-    private final String OPTIONS_LINE_FORMAT = "| %-2s | %-91s |%n";
     private final User user;
 
     public Menu(User user, Inventario inventario) {
@@ -23,16 +21,9 @@ public class Menu {
         System.out.println();
     }
 
-    private void printUserInfo() {
-        String name = "Nombre: " + user.getNombre();
-        String role = "Categoría: " + user.getTipo();
-        printTitleMessage("USUARIO");
-        System.out.printf(LEFT_ALIGN_FORMAT, name);
-        System.out.printf(LEFT_ALIGN_FORMAT, role);
-    }
-
     private void printMenuOptions(Actions[] options) {
         for (Actions option : options) {
+            String OPTIONS_LINE_FORMAT = "| %-2s | %-91s |%n";
             System.out.printf(OPTIONS_LINE_FORMAT, option.getCode(), option.getDescription());
         }
         printLine();
@@ -44,10 +35,10 @@ public class Menu {
     }
 
     public Actions printMainMenu() {
-        Actions action = null;
+        Actions action;
         do {
             clearScreen();
-            printUserInfo();
+            printUserInfo(user);
             printTitleMessage("MENU PRINCIPAL");
             printMenuOptions(user.actions());
             Character option = InputHandlers.getInput();
@@ -58,9 +49,7 @@ public class Menu {
     }
 
     public void actionHandler(Actions action) {
-        clearScreen();
-        printUserInfo();
-        PerformMenuOptions.actionHandler(action, inventario);
+        PerformMenuOptions.actionHandler(action, inventario, user);
         InputHandlers.waitForEnter();
     }
 }

@@ -3,35 +3,28 @@ package com.rammar;
 import java.text.DecimalFormat;
 import java.util.UUID;
 
-public class Producto {
+public abstract class Producto {
     private static final DecimalFormat df = new DecimalFormat("#.00");
-    private int uid;
+    private int id;
     private String description;
     private Double cost;
     private Integer profitPercentage;
-    private Integer stock;
 
-    public Producto(int uid, String description, Double cost, Integer profitPercentage, Integer stock) {
-        this.uid = uid;
+    public Producto(int id, String description, Double cost, Integer profitPercentage) {
+        this.id = id;
         this.description = description;
         this.cost = cost;
         this.profitPercentage = profitPercentage;
-        this.stock = stock;
-    }
-
-    public int addStock(int quantity) {
-        this.stock += quantity;
-        return this.stock;
-    }
-
-    public int subtractStock(int quantity) {
-        this.stock -= quantity;
-        return this.stock;
     }
 
     public Double getPrice() {
         return cost * ((double) profitPercentage / 100 + 1);
     }
+
+    public Integer getProfitPercentage() {
+        return profitPercentage;
+    }
+
     public String getPriceStr() {
         return df.format(getPrice());
     }
@@ -44,16 +37,12 @@ public class Producto {
         return df.format(cost);
     }
 
-    public int getUid() {
-        return uid;
+    public int getId() {
+        return id;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public Integer getStock() {
-        return stock;
     }
 
 }
